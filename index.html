@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>fixa — 사람이 알아채기 전에 스스로 복구합니다</title>
+<meta name="description" content="fixa는 프로덕션 결함을 감지하고, 재현하고, 패치를 작성해 검증까지 마친 뒤 배포하는 자율 복구 엔진입니다." />
+<meta name="color-scheme" content="dark light" />
+<link rel="stylesheet" href="assets/css/fixa.css" />
+<script>
+  /* marks that scripting is live, so scroll-reveal may hide things */
+  document.documentElement.classList.add('js');
+  /* restore a stored override before first paint; otherwise the OS decides */
+  try {
+    var t = localStorage.getItem('fixa-theme');
+    if (t) document.documentElement.setAttribute('data-theme', t);
+  } catch (e) {}
+</script>
+</head>
+<body>
+
+<a class="skip" href="#main">본문으로 건너뛰기</a>
+
+<!-- ───────────────────────────────────────── nav -->
+<header class="nav" id="nav">
+  <div class="nav__in">
+    <a class="brand" href="#" aria-label="fixa 홈">
+      <span class="brand__mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square">
+          <path d="M4 12h4l2.5-6 3 12L16 12h4" />
+        </svg>
+      </span>
+      <span class="brand__word">fixa</span>
+    </a>
+
+    <nav class="nav__links" aria-label="주요 메뉴">
+      <a href="#how">작동 방식</a>
+      <a href="#proof">복구 기록</a>
+      <a href="#spec">사양</a>
+      <a href="#trust">보안</a>
+    </nav>
+
+    <div class="nav__end">
+      <p class="status" role="status">
+        <span class="status__dot" aria-hidden="true"></span>
+        <span class="status__txt">모든 시스템 정상</span>
+      </p>
+      <button class="themebtn" type="button" id="themebtn" aria-label="밝기 전환">
+        <span class="themebtn__ico" aria-hidden="true"></span>
+      </button>
+      <a class="btn btn--sm" href="#cta">시작하기</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ───────────────────────────────────────── hero -->
+<section class="hero" id="hero">
+
+  <div class="stage" aria-hidden="true">
+    <canvas id="gl" class="stage__gl"></canvas>
+    <div class="stage__fb"></div>
+    <div class="stage__scrim"></div>
+  </div>
+
+  <div class="hero__grid">
+
+    <div class="hero__lede">
+      <p class="eyebrow">
+        <span class="eyebrow__k">자율 복구 엔진</span>
+        <span class="eyebrow__sep" aria-hidden="true"></span>
+        <span class="eyebrow__v">AUTONOMOUS&nbsp;REPAIR&nbsp;/&nbsp;v2.4</span>
+      </p>
+
+      <h1 class="display" id="headline">
+        <span class="display__ln" data-scramble>사람이 알아채기 전에</span>
+        <span class="display__ln display__ln--accent" data-scramble data-delay="260">스스로 복구합니다</span>
+      </h1>
+
+      <p class="lede">
+        fixa는 프로덕션에서 발생한 결함을 <em>감지</em>하고, 격리된 샌드박스에서
+        <em>재현</em>한 뒤, 최소 변경 패치를 작성해 <em>검증</em>까지 마치고 배포합니다.
+        사람은 승인만 하면 됩니다.
+      </p>
+
+      <div class="ctarow">
+        <a class="btn btn--primary" href="#proof">
+          <span>복구 시연 보기</span>
+          <svg class="btn__arw" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke-linecap="square"/></svg>
+        </a>
+        <a class="btn btn--ghost" href="#spec">기술 문서</a>
+      </div>
+
+      <p class="microcopy">
+        신용카드 없이 14일 · 읽기 전용 모드로 먼저 관찰합니다
+      </p>
+    </div>
+
+    <!-- live instrument readout -->
+    <aside class="readout" aria-label="실시간 지표">
+      <p class="readout__hd">
+        <span>LIVE&nbsp;TELEMETRY</span>
+        <span class="readout__pulse" aria-hidden="true"></span>
+      </p>
+
+      <dl class="readout__list">
+        <div class="ro">
+          <dt>평균 복구 시간</dt>
+          <dd><span class="num" data-tick="mttr">04:12</span></dd>
+        </div>
+        <div class="ro">
+          <dt>이번 주 자동 복구</dt>
+          <dd><span class="num" data-tick="fixed">1,284</span></dd>
+        </div>
+        <div class="ro">
+          <dt>패치 정확도</dt>
+          <dd><span class="num" data-tick="acc">99.2%</span></dd>
+        </div>
+        <div class="ro">
+          <dt>감시 중 서비스</dt>
+          <dd><span class="num">37</span></dd>
+        </div>
+      </dl>
+
+      <div class="readout__ft">
+        <span class="chip chip--ok">복구 완료 12</span>
+        <span class="chip chip--warn">검증 중 2</span>
+      </div>
+    </aside>
+
+  </div>
+
+  <div class="hero__base">
+    <a class="scrollcue" href="#how">
+      <span class="scrollcue__ln" aria-hidden="true"></span>
+      <span>작동 방식</span>
+    </a>
+    <ul class="marks" aria-label="도입 기업">
+      <li>NEXOR</li><li>한빛클라우드</li><li>Orbit&nbsp;Pay</li><li>대성물류</li><li>Lumen&nbsp;Health</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ───────────────────────────────────────── pipeline -->
+<section class="sec" id="how">
+  <div class="sec__hd reveal">
+    <p class="kicker">복구 파이프라인</p>
+    <h2 class="h2">한 번의 장애가 <br />다섯 단계를 지납니다</h2>
+    <p class="sec__sub">
+      각 단계는 앞 단계의 산출물 없이는 시작하지 않습니다. 순서가 곧 안전장치입니다.
+    </p>
+  </div>
+
+  <ol class="pipe" id="pipe">
+    <li class="pipe__i reveal">
+      <p class="pipe__n">01</p>
+      <h3 class="pipe__t">감지 <span>DETECT</span></h3>
+      <p class="pipe__d">이상 신호를 로그·트레이스·메트릭에서 교차 확인해 평균 4초 안에 포착합니다.</p>
+      <p class="pipe__m">p50 3.8s</p>
+    </li>
+    <li class="pipe__i reveal">
+      <p class="pipe__n">02</p>
+      <h3 class="pipe__t">재현 <span>REPRODUCE</span></h3>
+      <p class="pipe__d">프로덕션과 동일한 격리 샌드박스를 세우고 실패 케이스를 다시 만듭니다.</p>
+      <p class="pipe__m">재현율 94%</p>
+    </li>
+    <li class="pipe__i reveal">
+      <p class="pipe__n">03</p>
+      <h3 class="pipe__t">수리 <span>PATCH</span></h3>
+      <p class="pipe__d">근본 원인만 건드리는 최소 변경 패치를 작성하고 이유를 함께 남깁니다.</p>
+      <p class="pipe__m">평균 +14 −6</p>
+    </li>
+    <li class="pipe__i reveal">
+      <p class="pipe__n">04</p>
+      <h3 class="pipe__t">검증 <span>VERIFY</span></h3>
+      <p class="pipe__d">회귀 테스트 전량과 카나리 트래픽 5%로 패치가 실제로 고쳤는지 확인합니다.</p>
+      <p class="pipe__m">게이트 3중</p>
+    </li>
+    <li class="pipe__i reveal">
+      <p class="pipe__n">05</p>
+      <h3 class="pipe__t">배포 <span>SHIP</span></h3>
+      <p class="pipe__d">승인 후 점진 롤아웃, 지표가 흔들리면 사람을 기다리지 않고 되돌립니다.</p>
+      <p class="pipe__m">롤백 8초</p>
+    </li>
+  </ol>
+</section>
+
+<!-- ───────────────────────────────────────── proof -->
+<section class="sec sec--panel" id="proof">
+  <div class="proof">
+    <div class="proof__side reveal">
+      <p class="kicker">복구 기록</p>
+      <h2 class="h2">INC‑4471<br />결제 타임아웃</h2>
+      <p class="sec__sub">
+        새벽 3시 12분, 결제 승인 지연이 임계값을 넘었습니다.
+        fixa가 원인을 커넥션 풀 고갈로 좁히고 패치를 올린 뒤,
+        당직자는 알림 하나와 승인 버튼 하나를 받았습니다.
+      </p>
+      <dl class="kv">
+        <div><dt>감지</dt><dd>03:12:04</dd></div>
+        <div><dt>배포</dt><dd>03:16:16</dd></div>
+        <div><dt>영향 사용자</dt><dd>0</dd></div>
+        <div><dt>사람 개입</dt><dd>승인 1회</dd></div>
+      </dl>
+    </div>
+
+    <figure class="term reveal" aria-label="fixa 복구 로그 예시">
+      <figcaption class="term__bar">
+        <span class="term__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="term__ttl">fixa · incident‑4471</span>
+        <span class="term__st">RESOLVED</span>
+      </figcaption>
+      <pre class="term__body"><code data-type>
+<span class="c-mut">03:12:04</span> <span class="c-warn">DETECT </span> p99 latency 4.8s <span class="c-mut">(threshold 1.2s)</span>
+<span class="c-mut">03:12:09</span> <span class="c-mut">SCOPE  </span> payments‑api → db‑pool
+<span class="c-mut">03:12:41</span> <span class="c-mut">REPRO  </span> sandbox‑7f2 · 실패 재현 성공
+<span class="c-mut">03:13:58</span> <span class="c-ok">PATCH  </span> pool.max 20 → 64, idle 30s → 5s
+<span class="c-mut">03:15:02</span> <span class="c-mut">VERIFY </span> 412 tests · canary 5% · p99 0.21s
+<span class="c-mut">03:16:16</span> <span class="c-ok">SHIP   </span> rollout 100% · 롤백 준비 완료
+</code></pre>
+      <div class="term__diff">
+        <p class="term__difhd">patch · db/pool.ts</p>
+        <p class="dl dl--del"><span>−</span> maxConnections: 20,</p>
+        <p class="dl dl--add"><span>+</span> maxConnections: 64,</p>
+        <p class="dl dl--add"><span>+</span> idleTimeoutMs: 5_000,</p>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<!-- ───────────────────────────────────────── spec -->
+<section class="sec" id="spec">
+  <div class="sec__hd reveal">
+    <p class="kicker">사양</p>
+    <h2 class="h2">숫자로 적어둡니다</h2>
+    <p class="sec__sub">영업 자료가 아니라 운영 문서에 들어가는 값입니다. 지난 90일 실측 기준.</p>
+  </div>
+
+  <div class="tablewrap reveal">
+    <table class="tbl">
+      <caption class="sr">fixa 운영 사양</caption>
+      <thead>
+        <tr><th scope="col">항목</th><th scope="col">값</th><th scope="col">측정</th><th scope="col">비고</th></tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row">감지 지연</th><td class="n">3.8s</td><td class="n n--unit">p50</td><td>로그·트레이스·메트릭 교차</td></tr>
+        <tr><th scope="row">평균 복구 시간</th><td class="n">4:12</td><td class="n n--unit">p50</td><td>감지부터 배포 완료까지</td></tr>
+        <tr><th scope="row">패치 정확도</th><td class="n">99.2%</td><td class="n n--unit">90일</td><td>회귀 없이 통과한 비율</td></tr>
+        <tr><th scope="row">자동 롤백</th><td class="n">8s</td><td class="n n--unit">p95</td><td>지표 이탈 감지 시</td></tr>
+        <tr><th scope="row">지원 런타임</th><td class="n">14</td><td class="n n--unit">—</td><td>Node · Go · JVM · Python 외</td></tr>
+        <tr><th scope="row">데이터 보존</th><td class="n">30일</td><td class="n n--unit">기본</td><td>리전 고정, 삭제 요청 즉시 반영</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ───────────────────────────────────────── trust -->
+<section class="sec sec--panel" id="trust">
+  <div class="sec__hd reveal">
+    <p class="kicker">보안</p>
+    <h2 class="h2">권한은 최소로,<br />기록은 전부</h2>
+  </div>
+  <ul class="cards">
+    <li class="card reveal">
+      <h3 class="card__t">읽기 전용으로 시작</h3>
+      <p class="card__d">도입 첫 2주는 관찰만 합니다. 무엇을 고쳤을지 보고서로만 제출하고, 쓰기 권한은 승인 후에 열립니다.</p>
+    </li>
+    <li class="card reveal">
+      <h3 class="card__t">모든 변경에 근거</h3>
+      <p class="card__d">패치마다 원인 가설, 재현 로그, 테스트 결과가 함께 남습니다. 사후 검토에 그대로 씁니다.</p>
+    </li>
+    <li class="card reveal">
+      <h3 class="card__t">코드는 나가지 않습니다</h3>
+      <p class="card__d">전용 VPC 또는 온프레미스에서 실행합니다. 소스와 로그는 지정한 리전을 벗어나지 않습니다.</p>
+    </li>
+    <li class="card reveal">
+      <h3 class="card__t">언제든 멈춤</h3>
+      <p class="card__d">단일 킬 스위치로 전 서비스 자동 조치를 중단합니다. 진행 중이던 롤아웃은 즉시 되돌립니다.</p>
+    </li>
+  </ul>
+</section>
+
+<!-- ───────────────────────────────────────── cta -->
+<section class="cta" id="cta">
+  <div class="cta__in reveal">
+    <p class="kicker">시작</p>
+    <h2 class="cta__t">다음 장애는<br />알림보다 복구가 먼저입니다</h2>
+    <p class="sec__sub">읽기 전용 모드로 붙여두고, fixa가 무엇을 고쳤을지 2주 동안 지켜보세요.</p>
+    <div class="ctarow">
+      <a class="btn btn--primary" href="#">
+        <span>도입 문의</span>
+        <svg class="btn__arw" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke-linecap="square"/></svg>
+      </a>
+      <a class="btn btn--ghost" href="#">엔지니어와 통화</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="foot__in">
+    <p class="foot__brand">fixa</p>
+    <p class="foot__note">자율 복구 엔진 · 서울</p>
+    <p class="foot__note foot__note--dim">© 2026 fixa. 이 페이지는 디자인 템플릿입니다.</p>
+  </div>
+</footer>
+
+<script src="assets/js/hero-gl.js"></script>
+<script src="assets/js/site.js"></script>
+</body>
+</html>
