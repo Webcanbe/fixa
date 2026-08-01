@@ -61,17 +61,12 @@
 
   /* ---------- headline: scrambled, then repaired ---------- */
 
-  /* the scramble draws on fixa's own vocabulary rather than noise */
-  const HANGUL = '복구감지재현검증배포장애신호패치롤백지연원인';
-  const LATIN = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  /* glyphs the headline resolves out of — kept to the monospace
+     repertoire so character widths stay put while they settle */
+  const POOL = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
-  function isHangul(ch) {
-    const c = ch.charCodeAt(0);
-    return c >= 0xac00 && c <= 0xd7a3;
-  }
-
-  function pick(pool) {
-    return pool[(Math.random() * pool.length) | 0];
+  function pick() {
+    return POOL[(Math.random() * POOL.length) | 0];
   }
 
   function buildHeadline() {
@@ -86,9 +81,9 @@
       line.textContent = '';
 
       /* Per-character spans make every character its own break opportunity,
-         which lets Korean words split mid-word. So each word gets a nowrap
-         wrapper, and a real space text node between words becomes the only
-         place the line is allowed to break. */
+         which lets words split mid-word. So each word gets a nowrap wrapper,
+         and a real space text node between words becomes the only place the
+         line is allowed to break. */
       const words = text.split(/\s+/);
       let i = 0;
 
@@ -107,7 +102,6 @@
             cells.push({
               el: span,
               final: ch,
-              pool: isHangul(ch) ? HANGUL : LATIN,
               until: lineDelay + i * 30 + 300 + Math.random() * 220
             });
           }
@@ -143,7 +137,7 @@
           continue;
         }
         pending = true;
-        if (beat && t > c.until - 300) c.el.textContent = pick(c.pool);
+        if (beat && t > c.until - 300) c.el.textContent = pick();
       }
       if (pending) requestAnimationFrame(tick);
     })(t0);
@@ -196,9 +190,8 @@
     setInterval(() => {
       if (document.hidden) return;
       if (mttr) {
-        const s = 240 + Math.round((Math.random() - 0.5) * 18);
-        mttr.textContent =
-          String((s / 60) | 0).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0');
+        const s = 252 + Math.round((Math.random() - 0.5) * 18);
+        mttr.textContent = ((s / 60) | 0) + 'm ' + String(s % 60).padStart(2, '0') + 's';
       }
       if (acc) acc.textContent = (99.1 + Math.random() * 0.25).toFixed(1) + '%';
     }, 3200);
@@ -207,7 +200,7 @@
       if (document.hidden || !fixedEl) return;
       if (Math.random() > 0.55) {
         fixedN += 1;
-        fixedEl.textContent = fixedN.toLocaleString('ko-KR');
+        fixedEl.textContent = fixedN.toLocaleString('en-US');
       }
     }, 5400);
   }

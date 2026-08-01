@@ -284,8 +284,8 @@ void main(){
   float fres = pow(1.0 - max(dot(N, V), 0.0), 3.2);
 
   // uAmb lifts the facets off black; on paper it is what keeps the solid graphite
-  vec3 base = uShell * (uAmb + 0.82 * kd) + uOk * 0.14 * fd * uEmis;
-  base += uOk * fres * 0.42 * uEmis;
+  vec3 base = uShell * (uAmb + 0.86 * kd) + uOk * 0.07 * fd * uEmis;
+  base += uOk * fres * 0.30 * uEmis;
 
   // a tight machined highlight so the facets read as surfaces, not flat fill
   vec3 H = normalize(key + V);
@@ -699,9 +699,9 @@ void main(){
       // the object sits right-of-centre so the headline column stays clear.
       // positive x in eye space is screen-right, so the shift is added, not subtracted.
       const wide = aspect > 1.15;
-      const shiftX = wide ? 1.50 : 0.0;
+      const shiftX = wide ? 1.85 : 0.0;
       const shiftY = wide ? -0.06 : -0.95;   // on narrow screens it sits low, behind the readout
-      const dist = wide ? 7.0 : 8.6;
+      const dist = wide ? 6.1 : 8.6;
 
       const proj = perspective(0.62, aspect, 0.1, 60);
       const view = translate(shiftX, shiftY, -dist);
