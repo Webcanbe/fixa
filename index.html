@@ -24,7 +24,7 @@
 <!-- ───────────────────────────────────────── nav -->
 <header class="nav" id="nav">
   <div class="nav__in">
-    <a class="brand" href="/" aria-label="fixa home">
+    <a class="brand" href="./" aria-label="fixa home">
       <span class="brand__mark" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square">
           <path d="M4 12h4l2.5-6 3 12L16 12h4" />
@@ -33,11 +33,12 @@
       <span class="brand__word">fixa</span>
     </a>
 
-    <nav class="nav__links" aria-label="Primary">
+    <nav class="nav__links" id="navlinks" aria-label="Primary">
       <a href="#how">How it works</a>
       <a href="#proof">Incidents</a>
+      <a href="#connect">Integrations</a>
       <a href="#spec">Specs</a>
-      <a href="#trust">Security</a>
+      <a href="#pricing">Pricing</a>
     </nav>
 
     <div class="nav__end">
@@ -48,7 +49,29 @@
       <button class="themebtn" type="button" id="themebtn" aria-label="Toggle light and dark">
         <span class="themebtn__ico" aria-hidden="true"></span>
       </button>
-      <a class="btn btn--sm" href="#cta">Book a demo</a>
+      <a class="btn btn--sm" href="login.html">Sign in</a>
+      <button class="menubtn" type="button" id="menubtn"
+              aria-expanded="false" aria-controls="mobilemenu" aria-label="Open menu">
+        <span class="menubtn__box" aria-hidden="true"><i></i><i></i></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="mobilemenu" id="mobilemenu" hidden>
+    <nav aria-label="Mobile">
+      <a href="#how">How it works</a>
+      <a href="#proof">Incidents</a>
+      <a href="#connect">Integrations</a>
+      <a href="#spec">Specs</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="mobilemenu__ft">
+      <p class="status">
+        <span class="status__dot" aria-hidden="true"></span>
+        <span class="status__txt">All systems operational</span>
+      </p>
+      <a class="btn btn--primary" href="login.html">Sign in</a>
     </div>
   </div>
 </header>
@@ -85,15 +108,15 @@
       </p>
 
       <div class="ctarow">
-        <a class="btn btn--primary" href="#proof">
+        <a class="btn btn--primary" href="#proof" data-play>
           <span>Watch a repair</span>
           <svg class="btn__arw" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke-linecap="square"/></svg>
         </a>
-        <a class="btn btn--ghost" href="#spec">Read the docs</a>
+        <a class="btn btn--ghost" href="#how">See how it works</a>
       </div>
 
       <p class="microcopy">
-        14 days, no card. Starts in read-only — it watches before it touches anything.
+        Onboarding is paused while we're at capacity — join the waitlist to hold a place.
       </p>
 
       <dl class="stats" aria-label="Fleet metrics, last 7 days">
@@ -171,7 +194,7 @@
   </ol>
 </section>
 
-<!-- ───────────────────────────────────────── proof -->
+<!-- ───────────────────────────────────────── repair player -->
 <section class="sec sec--panel" id="proof">
   <div class="proof">
     <div class="proof__side reveal">
@@ -188,23 +211,38 @@
         <div><dt>Users affected</dt><dd>0</dd></div>
         <div><dt>Human input</dt><dd>1 approval</dd></div>
       </dl>
+      <p class="microcopy">Replays at 28× the original clock.</p>
     </div>
 
-    <figure class="term reveal" aria-label="fixa repair log for incident 4471">
+    <figure class="term reveal" id="player" aria-label="Repair log for incident 4471">
       <figcaption class="term__bar">
         <span class="term__dots" aria-hidden="true"><i></i><i></i><i></i></span>
         <span class="term__ttl">fixa · incident‑4471</span>
-        <span class="term__st">RESOLVED</span>
+        <span class="term__st" id="playState" data-state="idle">STANDBY</span>
       </figcaption>
-      <pre class="term__body"><code data-type>
-<span class="c-mut">03:12:04</span> <span class="c-warn">DETECT </span> p99 latency 4.8s <span class="c-mut">(threshold 1.2s)</span>
-<span class="c-mut">03:12:09</span> <span class="c-mut">SCOPE  </span> payments‑api → db‑pool
-<span class="c-mut">03:12:41</span> <span class="c-mut">REPRO  </span> sandbox‑7f2 · failure reproduced
-<span class="c-mut">03:13:58</span> <span class="c-ok">PATCH  </span> pool.max 20 → 64, idle 30s → 5s
-<span class="c-mut">03:15:02</span> <span class="c-mut">VERIFY </span> 412 tests · canary 5% · p99 0.21s
-<span class="c-mut">03:16:16</span> <span class="c-ok">SHIP   </span> rollout 100% · rollback armed
-</code></pre>
-      <div class="term__diff">
+
+      <div class="player__ctl">
+        <button class="pbtn" type="button" id="playBtn" aria-controls="playLog">
+          <span class="pbtn__ico" id="playIco" aria-hidden="true"></span>
+          <span id="playLbl">Play repair</span>
+        </button>
+        <div class="player__track" role="progressbar" aria-labelledby="playLbl"
+             aria-valuemin="0" aria-valuemax="252" aria-valuenow="0" id="playTrack">
+          <span class="player__fill" id="playFill"></span>
+        </div>
+        <span class="player__clock num" id="playClock">00:00</span>
+      </div>
+
+      <ol class="log" id="playLog">
+        <li class="log__l" data-at="0"><span class="log__t">03:12:04</span><span class="log__k log__k--warn">DETECT</span><span class="log__v">p99 latency 4.8s <i>(threshold 1.2s)</i></span></li>
+        <li class="log__l" data-at="5"><span class="log__t">03:12:09</span><span class="log__k">SCOPE</span><span class="log__v">payments‑api → db‑pool</span></li>
+        <li class="log__l" data-at="37"><span class="log__t">03:12:41</span><span class="log__k">REPRO</span><span class="log__v">sandbox‑7f2 · failure reproduced</span></li>
+        <li class="log__l" data-at="114" data-diff><span class="log__t">03:13:58</span><span class="log__k log__k--ok">PATCH</span><span class="log__v">pool.max 20 → 64, idle 30s → 5s</span></li>
+        <li class="log__l" data-at="178"><span class="log__t">03:15:02</span><span class="log__k">VERIFY</span><span class="log__v">412 tests · canary 5% · p99 0.21s</span></li>
+        <li class="log__l" data-at="252"><span class="log__t">03:16:16</span><span class="log__k log__k--ok">SHIP</span><span class="log__v">rollout 100% · rollback armed</span></li>
+      </ol>
+
+      <div class="term__diff" id="playDiff" data-open="false">
         <p class="term__difhd">patch · db/pool.ts</p>
         <p class="dl dl--del"><span>−</span> maxConnections: 20,</p>
         <p class="dl dl--add"><span>+</span> maxConnections: 64,</p>
@@ -212,10 +250,77 @@
       </div>
     </figure>
   </div>
+
+  <blockquote class="quote reveal">
+    <p class="quote__t">
+      “The first month it just watched and wrote reports. We read every one before we
+      let it touch anything. By the time we turned on write access we already trusted
+      the reasoning more than our own 3am guesses.”
+    </p>
+    <footer class="quote__by">
+      <span class="quote__nm">Priya Raghunathan</span>
+      <span class="quote__ro">VP Engineering, Orbit Pay</span>
+    </footer>
+  </blockquote>
+</section>
+
+<!-- ───────────────────────────────────────── integrations -->
+<section class="sec" id="connect">
+  <div class="sec__hd reveal">
+    <p class="kicker">Integrations</p>
+    <h2 class="h2">It reads what you<br />already run</h2>
+    <p class="sec__sub">
+      No new agent to standardize on and no telemetry rewrite. fixa connects to the
+      signals, repositories and runtimes you have today.
+    </p>
+  </div>
+
+  <div class="conn reveal">
+    <div class="conn__grp">
+      <h3 class="conn__h">Signals in</h3>
+      <ul class="conn__l">
+        <li>Datadog</li><li>Grafana</li><li>Sentry</li>
+        <li>OpenTelemetry</li><li>Prometheus</li><li>CloudWatch</li>
+      </ul>
+    </div>
+    <div class="conn__grp">
+      <h3 class="conn__h">Code</h3>
+      <ul class="conn__l">
+        <li>GitHub</li><li>GitLab</li><li>Bitbucket</li><li>Gerrit</li>
+      </ul>
+    </div>
+    <div class="conn__grp">
+      <h3 class="conn__h">Runtime</h3>
+      <ul class="conn__l">
+        <li>Kubernetes</li><li>ECS</li><li>Nomad</li><li>Bare metal</li>
+      </ul>
+    </div>
+    <div class="conn__grp">
+      <h3 class="conn__h">Notify</h3>
+      <ul class="conn__l">
+        <li>PagerDuty</li><li>Slack</li><li>Opsgenie</li><li>Webhooks</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="snip reveal">
+    <div class="snip__hd">
+      <span class="snip__lb">Connect in read-only</span>
+      <button class="copybtn" type="button" data-copy="fixa connect --workspace acme --read-only">
+        <span class="copybtn__t">Copy</span>
+      </button>
+    </div>
+    <pre class="snip__body"><code>$ brew install fixa
+$ fixa connect --workspace acme --read-only
+
+  <span class="c-ok">✓</span> 37 services discovered
+  <span class="c-ok">✓</span> read-only credentials stored in your vault
+  <span class="c-mut">·</span> observing — no writes until you approve</code></pre>
+  </div>
 </section>
 
 <!-- ───────────────────────────────────────── spec -->
-<section class="sec" id="spec">
+<section class="sec sec--panel" id="spec">
   <div class="sec__hd reveal">
     <p class="kicker">Specifications</p>
     <h2 class="h2">The numbers we<br />operate against</h2>
@@ -241,7 +346,7 @@
 </section>
 
 <!-- ───────────────────────────────────────── trust -->
-<section class="sec sec--panel" id="trust">
+<section class="sec" id="trust">
   <div class="sec__hd reveal">
     <p class="kicker">Security</p>
     <h2 class="h2">Least privilege,<br />complete record</h2>
@@ -266,18 +371,165 @@
   </ul>
 </section>
 
+<!-- ───────────────────────────────────────── pricing -->
+<section class="sec sec--panel" id="pricing">
+  <div class="sec__hd reveal">
+    <p class="kicker">Pricing</p>
+    <h2 class="h2">Priced per service,<br />not per incident</h2>
+    <p class="sec__sub">
+      You should never hesitate to point fixa at a flaky service because of the bill.
+    </p>
+
+    <div class="billing" role="group" aria-label="Billing period">
+      <button class="billing__b" type="button" data-billing="monthly" aria-pressed="true">Monthly</button>
+      <button class="billing__b" type="button" data-billing="annual" aria-pressed="false">
+        Annual <span class="billing__save">−20%</span>
+      </button>
+    </div>
+  </div>
+
+  <ul class="plans">
+    <li class="plan reveal">
+      <p class="plan__tag" aria-hidden="true">&nbsp;</p>
+      <h3 class="plan__n">Starter</h3>
+      <p class="plan__p">
+        <span class="plan__cur">$</span><span class="plan__v" data-monthly="2400" data-annual="1920">2,400</span>
+        <span class="plan__per">/mo</span>
+      </p>
+      <p class="plan__note" data-billing-note>Billed monthly</p>
+      <ul class="plan__l">
+        <li>Up to 10 services</li>
+        <li>Detect, reproduce and report</li>
+        <li>Patches require approval</li>
+        <li>30-day retention</li>
+        <li>Email support</li>
+      </ul>
+      <a class="btn btn--ghost plan__cta" href="login.html">Join waitlist</a>
+    </li>
+
+    <li class="plan plan--lead reveal">
+      <p class="plan__tag">Most teams start here</p>
+      <h3 class="plan__n">Scale</h3>
+      <p class="plan__p">
+        <span class="plan__cur">$</span><span class="plan__v" data-monthly="7900" data-annual="6320">7,900</span>
+        <span class="plan__per">/mo</span>
+      </p>
+      <p class="plan__note" data-billing-note>Billed monthly</p>
+      <ul class="plan__l">
+        <li>Up to 50 services</li>
+        <li>Everything in Starter</li>
+        <li>Auto-ship allowlist per service</li>
+        <li>Canary and progressive rollout</li>
+        <li>90-day retention</li>
+        <li>Shared Slack channel</li>
+      </ul>
+      <a class="btn btn--primary plan__cta" href="login.html">Join waitlist</a>
+    </li>
+
+    <li class="plan reveal">
+      <p class="plan__tag" aria-hidden="true">&nbsp;</p>
+      <h3 class="plan__n">Enterprise</h3>
+      <p class="plan__p"><span class="plan__v plan__v--word">Custom</span></p>
+      <p class="plan__note">On-premise or dedicated VPC</p>
+      <ul class="plan__l">
+        <li>Unlimited services</li>
+        <li>Everything in Scale</li>
+        <li>Air-gapped deployment</li>
+        <li>Custom retention and residency</li>
+        <li>Named reliability engineer</li>
+        <li>99.9% uptime SLA</li>
+      </ul>
+      <a class="btn btn--ghost plan__cta" href="login.html">Talk to us</a>
+    </li>
+  </ul>
+
+  <p class="plans__ft reveal">
+    All plans start in read-only. Nothing writes to your systems until you turn it on.
+  </p>
+</section>
+
+<!-- ───────────────────────────────────────── faq -->
+<section class="sec" id="faq">
+  <div class="sec__hd reveal">
+    <p class="kicker">Questions</p>
+    <h2 class="h2">The ones we actually<br />get asked</h2>
+  </div>
+
+  <div class="faq reveal">
+    <details class="faq__i" name="faq">
+      <summary class="faq__q">Why can't I sign up right now?<span class="faq__x" aria-hidden="true"></span></summary>
+      <div class="faq__a"><p>
+        Onboarding a workspace is hands-on for us — we tune detection against your
+        actual signals before fixa is allowed near a patch. We have more services
+        under repair than we can onboard well, so new workspaces are paused rather
+        than run badly. The waitlist is in order and we work through it weekly.
+      </p></div>
+    </details>
+
+    <details class="faq__i" name="faq">
+      <summary class="faq__q">What happens when fixa can't reproduce a failure?<span class="faq__x" aria-hidden="true"></span></summary>
+      <div class="faq__a"><p>
+        It stops. A patch is never written against a failure that was not reproduced
+        in the sandbox first. You get the detection record, the traces it correlated
+        and what it tried, and the incident is handed to a human.
+      </p></div>
+    </details>
+
+    <details class="faq__i" name="faq">
+      <summary class="faq__q">Can it ship without a human approving?<span class="faq__x" aria-hidden="true"></span></summary>
+      <div class="faq__a"><p>
+        Not by default. Every rollout waits for an approval. Teams that have watched
+        it for a while tend to allowlist specific low-risk services — config bounds,
+        pool sizes, timeouts — and keep approval on everything else. The allowlist is
+        per service and revocable at any moment.
+      </p></div>
+    </details>
+
+    <details class="faq__i" name="faq">
+      <summary class="faq__q">What if the patch is wrong?<span class="faq__x" aria-hidden="true"></span></summary>
+      <div class="faq__a"><p>
+        Three things have to pass before a patch reaches full traffic: your regression
+        suite, a 5% canary, and the metric that opened the incident returning to
+        normal. After rollout, deviation triggers an automatic revert in about eight
+        seconds at p95 — faster than a human can read the alert.
+      </p></div>
+    </details>
+
+    <details class="faq__i" name="faq">
+      <summary class="faq__q">Does our source code leave our infrastructure?<span class="faq__x" aria-hidden="true"></span></summary>
+      <div class="faq__a"><p>
+        No. fixa runs inside your VPC or on-premise. Source, logs and traces stay in
+        the region you name. What leaves is billing metadata and, if you opt in,
+        anonymous failure-class counts that help us improve detection.
+      </p></div>
+    </details>
+
+    <details class="faq__i" name="faq">
+      <summary class="faq__q">Which runtimes are supported?<span class="faq__x" aria-hidden="true"></span></summary>
+      <div class="faq__a"><p>
+        Fourteen today. Node, Deno, Go, JVM languages, Python, Ruby, Rust, PHP,
+        .NET and Elixir cover almost everyone who asks. Reproduction quality is
+        highest where you already have integration tests worth running.
+      </p></div>
+    </details>
+  </div>
+</section>
+
 <!-- ───────────────────────────────────────── cta -->
 <section class="cta" id="cta">
   <div class="cta__in reveal">
-    <p class="kicker">Get started</p>
+    <p class="kicker">Waitlist</p>
     <h2 class="cta__t">The next incident should be<br />a repair, not a page</h2>
-    <p class="sec__sub">Connect fixa in read-only and spend two weeks reading what it would have fixed.</p>
+    <p class="sec__sub">
+      We're not onboarding new workspaces at the moment. Leave an address and we'll
+      come back to you in order, usually within a few weeks.
+    </p>
     <div class="ctarow">
-      <a class="btn btn--primary" href="#">
-        <span>Book a demo</span>
+      <a class="btn btn--primary" href="login.html">
+        <span>Join the waitlist</span>
         <svg class="btn__arw" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke-linecap="square"/></svg>
       </a>
-      <a class="btn btn--ghost" href="#">Talk to an engineer</a>
+      <a class="btn btn--ghost" href="#faq">Read the FAQ</a>
     </div>
   </div>
 </section>
@@ -287,7 +539,7 @@
 <footer class="foot">
   <div class="foot__in">
     <div class="foot__id">
-      <a class="brand" href="/" aria-label="fixa home">
+      <a class="brand" href="./" aria-label="fixa home">
         <span class="brand__mark" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square">
             <path d="M4 12h4l2.5-6 3 12L16 12h4" />
@@ -308,35 +560,25 @@
         <ul>
           <li><a href="#how">How it works</a></li>
           <li><a href="#proof">Incidents</a></li>
-          <li><a href="#spec">Specs</a></li>
-          <li><a href="#">Changelog</a></li>
+          <li><a href="#connect">Integrations</a></li>
+          <li><a href="#pricing">Pricing</a></li>
         </ul>
       </div>
       <div class="foot__col">
-        <h2 class="foot__h">Developers</h2>
+        <h2 class="foot__h">Resources</h2>
         <ul>
-          <li><a href="#">Documentation</a></li>
-          <li><a href="#">API reference</a></li>
-          <li><a href="#">Runtime agents</a></li>
-          <li><a href="#">Status</a></li>
+          <li><a href="#spec">Specs</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#trust">Security</a></li>
+          <li><a href="login.html">Sign in</a></li>
         </ul>
       </div>
       <div class="foot__col">
         <h2 class="foot__h">Company</h2>
         <ul>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Careers</a></li>
-          <li><a href="#">Engineering blog</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-      </div>
-      <div class="foot__col">
-        <h2 class="foot__h">Legal</h2>
-        <ul>
-          <li><a href="#trust">Security</a></li>
-          <li><a href="#">Privacy</a></li>
-          <li><a href="#">Terms</a></li>
-          <li><a href="#">Sub-processors</a></li>
+          <li><a href="#cta">Waitlist</a></li>
+          <li><a href="#proof">Customer stories</a></li>
+          <li><a href="#trust">Trust</a></li>
         </ul>
       </div>
     </nav>
@@ -344,7 +586,13 @@
 
   <div class="foot__base">
     <p class="foot__note">© 2026 fixa, Inc.</p>
-    <p class="foot__note">This site is made by Alex M</p>
+    <p class="foot__note">
+      <a class="foot__credit" href="https://www.upwork.com/freelancers/~01238100bda052dcdb?mp_source=share"
+         target="_blank" rel="noopener noreferrer">
+        This site is made by Alex M
+        <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true" class="foot__ext"><path d="M4 2h6v6M10 2 3 9" stroke-linecap="square"/></svg>
+      </a>
+    </p>
     <p class="foot__note foot__note--dim">SOC 2 Type II · ISO 27001</p>
   </div>
 </footer>

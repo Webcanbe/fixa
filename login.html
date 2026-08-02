@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Sign in — fixa</title>
+<meta name="description" content="fixa is at capacity and new workspaces are paused. Join the waitlist and we'll come back to you in order." />
+<meta name="color-scheme" content="dark light" />
+<meta name="robots" content="noindex" />
+<link rel="stylesheet" href="assets/css/fixa.css" />
+<script>
+  document.documentElement.classList.add('js');
+  try {
+    var t = localStorage.getItem('fixa-theme');
+    if (t) document.documentElement.setAttribute('data-theme', t);
+  } catch (e) {}
+</script>
+</head>
+<body class="authbody">
+
+<a class="skip" href="#auth">Skip to content</a>
+
+<header class="authnav">
+  <a class="brand" href="./" aria-label="fixa home">
+    <span class="brand__mark" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square">
+        <path d="M4 12h4l2.5-6 3 12L16 12h4" />
+      </svg>
+    </span>
+    <span class="brand__word">fixa</span>
+  </a>
+  <div class="authnav__end">
+    <button class="themebtn" type="button" id="themebtn" aria-label="Toggle light and dark">
+      <span class="themebtn__ico" aria-hidden="true"></span>
+    </button>
+    <a class="btn btn--sm" href="./">Back to site</a>
+  </div>
+</header>
+
+<main class="auth" id="auth">
+  <div class="auth__card">
+
+    <p class="notice" role="status">
+      <span class="notice__dot" aria-hidden="true"></span>
+      <span>
+        <strong>We're at capacity.</strong> New workspaces are paused while we finish
+        onboarding the teams already in the queue. Sign-in is closed to everyone — including
+        existing customers on shared infrastructure — until the next cohort opens.
+      </span>
+    </p>
+
+    <h1 class="auth__t">Sign in to fixa</h1>
+    <p class="auth__sub">
+      Every workspace is tuned by hand before fixa is allowed near a patch, and we
+      have more services under repair than we can onboard well. Rather than run that
+      badly, we've stopped taking new sign-ins.
+    </p>
+
+    <div class="prov" aria-describedby="provwhy">
+      <button class="prov__b" type="button" disabled>
+        <span class="prov__i" aria-hidden="true">
+          <svg viewBox="0 0 18 18"><path fill="#4285F4" d="M17.6 9.2c0-.6-.1-1.3-.2-1.9H9v3.5h4.8a4.1 4.1 0 0 1-1.8 2.7v2.3h2.9c1.7-1.6 2.7-3.9 2.7-6.6z"/><path fill="#34A853" d="M9 18c2.4 0 4.5-.8 6-2.2l-2.9-2.3c-.8.6-1.9.9-3.1.9-2.4 0-4.4-1.6-5.1-3.8H.9v2.3A9 9 0 0 0 9 18z"/><path fill="#FBBC05" d="M3.9 10.6a5.4 5.4 0 0 1 0-3.4V4.9H.9a9 9 0 0 0 0 8.1l3-2.4z"/><path fill="#EA4335" d="M9 3.6c1.3 0 2.5.5 3.4 1.3l2.6-2.6A9 9 0 0 0 .9 4.9l3 2.3C4.6 5.1 6.6 3.6 9 3.6z"/></svg>
+        </span>
+        <span>Continue with Google</span>
+      </button>
+
+      <button class="prov__b" type="button" disabled>
+        <span class="prov__i" aria-hidden="true">
+          <svg viewBox="0 0 18 18" fill="currentColor"><path d="M9 0a9 9 0 0 0-2.8 17.5c.4.1.6-.2.6-.4v-1.6C4.3 15.9 3.8 14.6 3.8 14.6c-.4-1-1-1.3-1-1.3-.8-.6.1-.6.1-.6.9.1 1.4.9 1.4.9.8 1.4 2.1 1 2.6.8.1-.6.3-1 .6-1.3-2.2-.2-4.5-1.1-4.5-4.9 0-1.1.4-2 1-2.7-.1-.2-.4-1.2.1-2.6 0 0 .8-.3 2.7 1a9.3 9.3 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.6.6.7 1 1.6 1 2.7 0 3.8-2.3 4.7-4.5 4.9.3.3.7 1 .7 2v2.9c0 .3.1.6.6.4A9 9 0 0 0 9 0z"/></svg>
+        </span>
+        <span>Continue with GitHub</span>
+      </button>
+
+      <button class="prov__b" type="button" disabled>
+        <span class="prov__i" aria-hidden="true">
+          <svg viewBox="0 0 18 18"><path fill="#F25022" d="M1 1h7.6v7.6H1z"/><path fill="#7FBA00" d="M9.4 1H17v7.6H9.4z"/><path fill="#00A4EF" d="M1 9.4h7.6V17H1z"/><path fill="#FFB900" d="M9.4 9.4H17V17H9.4z"/></svg>
+        </span>
+        <span>Continue with Microsoft</span>
+      </button>
+
+      <button class="prov__b" type="button" disabled>
+        <span class="prov__i prov__i--key" aria-hidden="true">
+          <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6.5" cy="9" r="3"/><path d="M9.5 9H16m-2.5 0v2.5" stroke-linecap="square"/></svg>
+        </span>
+        <span>Continue with SAML SSO</span>
+      </button>
+    </div>
+
+    <p class="prov__why" id="provwhy">
+      All providers are configured and will come back on when the next cohort opens.
+      They're switched off here, not broken.
+    </p>
+
+    <div class="auth__or"><span>or</span></div>
+
+    <!-- the one thing on this page that is actually live -->
+    <form class="wl" id="waitlist" novalidate>
+      <h2 class="wl__t">Join the waitlist</h2>
+
+      <div class="field">
+        <label class="field__l" for="wl-email">Work email</label>
+        <input class="field__i" type="email" id="wl-email" name="email"
+               autocomplete="email" placeholder="you@company.com"
+               aria-describedby="wl-email-err" required />
+        <p class="field__e" id="wl-email-err" hidden></p>
+      </div>
+
+      <div class="field">
+        <label class="field__l" for="wl-company">Company</label>
+        <input class="field__i" type="text" id="wl-company" name="company"
+               autocomplete="organization" placeholder="Acme Inc."
+               aria-describedby="wl-company-err" required />
+        <p class="field__e" id="wl-company-err" hidden></p>
+      </div>
+
+      <div class="field">
+        <label class="field__l" for="wl-svc">Services in production</label>
+        <select class="field__i" id="wl-svc" name="services">
+          <option value="1-10">1 – 10</option>
+          <option value="11-50" selected>11 – 50</option>
+          <option value="51-200">51 – 200</option>
+          <option value="200+">200+</option>
+        </select>
+      </div>
+
+      <button class="btn btn--primary wl__go" type="submit">
+        <span>Join the waitlist</span>
+        <svg class="btn__arw" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke-linecap="square"/></svg>
+      </button>
+
+      <p class="wl__fine">
+        One email when your place comes up. Nothing else, and no sharing.
+      </p>
+    </form>
+
+    <div class="wl__done" id="waitlistDone" hidden>
+      <p class="wl__badge" aria-hidden="true">✓</p>
+      <h2 class="wl__t">You're on the list</h2>
+      <p class="wl__msg" id="waitlistMsg"></p>
+      <dl class="wl__rec" id="waitlistRec"></dl>
+      <button class="btn btn--ghost" type="button" id="waitlistEdit">Use a different address</button>
+    </div>
+
+  </div>
+
+  <p class="auth__ft">
+    Trouble with an existing workspace?
+    <a href="./#faq">Read the FAQ</a> — it covers what the pause does and doesn't affect.
+  </p>
+</main>
+
+<footer class="foot foot--auth">
+  <div class="foot__base">
+    <p class="foot__note">© 2026 fixa, Inc.</p>
+    <p class="foot__note">
+      <a class="foot__credit" href="https://www.upwork.com/freelancers/~01238100bda052dcdb?mp_source=share"
+         target="_blank" rel="noopener noreferrer">
+        This site is made by Alex M
+        <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true" class="foot__ext"><path d="M4 2h6v6M10 2 3 9" stroke-linecap="square"/></svg>
+      </a>
+    </p>
+    <p class="foot__note foot__note--dim">SOC 2 Type II · ISO 27001</p>
+  </div>
+</footer>
+
+<script src="assets/js/site.js"></script>
+<script src="assets/js/login.js"></script>
+</body>
+</html>

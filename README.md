@@ -4,11 +4,13 @@ Marketing site for fixa, an autonomous repair engine for production systems.
 Static pages — no build step, no framework, no external requests.
 
 ```
-index.html
+index.html          landing page
+login.html          sign-in — providers disabled, waitlist live
 assets/
   css/fixa.css      tokens first, then components
   js/hero-gl.js     the hero render (WebGL2, no dependencies)
-  js/site.js        headline reveal, scroll reveals, theme, live figures
+  js/site.js        shared: menu, replay, pricing, theme, reveals
+  js/login.js       waitlist validation and persistence
 ```
 
 Open `index.html` directly, or serve the directory:
@@ -16,6 +18,26 @@ Open `index.html` directly, or serve the directory:
 ```
 python3 -m http.server 8000
 ```
+
+## What actually works
+
+Nothing on either page is a painted-on control.
+
+| Control | Behaviour |
+| --- | --- |
+| Mobile menu | Opens under 900px, closes on Escape, on link activation, and when the viewport crosses back over the breakpoint |
+| Incident replay | Steps carry their real offsets (0–252s) and play at 28×, so the pacing between stages is the true one. Play / pause / resume / replay, a progress bar, a running clock, a status pill that moves fault → repairing → resolved, and the diff appearing on the PATCH step. Autoplays once on first view; pauses when the tab is hidden |
+| "Watch a repair" | Jumps to the player *and* restarts it |
+| Billing toggle | Recomputes every price from `data-monthly` / `data-annual` and rewrites the billing note |
+| FAQ | Native `<details>`, so it works with scripting off |
+| Copy button | Clipboard API with a selection fallback for non-secure contexts |
+| Scrollspy | Marks the nav link for the topmost visible section |
+| Waitlist | Validates format, rejects personal-mail domains, assigns a stable queue position derived from the address, and persists in `localStorage` so a return visit shows your place |
+
+Sign-in is deliberately closed. Every identity provider on `login.html` is
+rendered and disabled behind an at-capacity notice — the UI is there, the door
+isn't open. `saveEntry()` in `login.js` is the single seam to replace with a
+`fetch()` when a backend exists.
 
 ## The hero
 
@@ -70,6 +92,9 @@ changes, so **editing the CSS moves the 3D with it.**
 - **The break wave** is `breakAt()`: the exponent sets the band width,
   `fract(time * 0.115)` sets its speed
 - **Object placement** is `shiftX` / `shiftY` / `dist` in `drawScene()`
+- **Replay pacing** is `SPAN` and `RATE` in `site.js`; each step's `data-at` is
+  its offset in incident seconds
+- **Queue size** is `QUEUE_BASE` in `login.js`
 
-Metrics, customer names and the incident record are illustrative content for the
-page, not real operating data.
+Metrics, customer names, pricing and the incident record are illustrative
+content for the page, not real operating data.
