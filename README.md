@@ -1,65 +1,100 @@
 # fixa
 
-자율 복구 엔진(autonomous repair engine) 컨셉의 AI 회사 랜딩 페이지 템플릿.
-빌드 도구·프레임워크·외부 CDN 없이 동작하는 정적 페이지입니다.
+Marketing site for fixa, an autonomous repair engine for production systems.
+Static pages — no build step, no framework, no external requests.
 
 ```
-index.html
+index.html          landing page
+login.html          sign-in — providers disabled, waitlist live
 assets/
-  css/fixa.css      토큰 → 컴포넌트 순서의 스타일시트
-  js/hero-gl.js     히어로 3D (WebGL2, 의존성 없음)
-  js/site.js        헤드라인 복구 애니메이션, 스크롤 리빌, 테마, 실시간 수치
+  css/fixa.css      tokens first, then components
+  js/hero-gl.js     the hero render (WebGL2, no dependencies)
+  js/site.js        shared: menu, replay, pricing, theme, reveals
+  js/login.js       waitlist validation and persistence
 ```
 
-로컬에서 보려면 `index.html`을 그대로 열거나 정적 서버를 띄우면 됩니다.
+Open `index.html` directly, or serve the directory:
 
 ```
 python3 -m http.server 8000
 ```
 
-## 히어로
+## What actually works
 
-페이지의 주장을 그대로 렌더링한 오브젝트입니다. 가우시안 형태의 **파단파(break
-wave)** 가 다면체 표면을 훑고 지나가면서, 파동에 걸린 면들이 자기 법선 방향으로
-들리고 회전해 틈을 엽니다. 그 틈으로 뜨거운 코어가 보이고, 파동이 지나간 자리는
-다시 닫히면서 이음매 색이 앰버에서 민트로 식습니다. 고장과 복구, 두 상태가
-그대로 색으로 드러납니다.
+Nothing on either page is a painted-on control.
 
-- 지오스피어(320면)를 면 단위로 분해해 각 면이 중심점·법선·시드를 들고 다닙니다
-- 코어 + 셸 + 드리프트 입자를 씬 FBO에 그린 뒤, 밝기 추출 → 분리형 블러(1/4 해상도)
-  → 합성(블룸·색수차·비네트·디더) 순으로 후처리합니다
-- 라이브러리를 쓰지 않습니다. 행렬 연산과 지오메트리 생성까지 `hero-gl.js` 안에 있습니다
-
-## 테마
-
-색은 전부 `:root`의 커스텀 프로퍼티에서 나옵니다. 다크가 기본값이고, 라이트는
-반전이 아니라 별도로 설계된 "실험실 용지" 버전입니다.
-
-셰이더 팔레트도 같은 토큰(`--gl-*`)을 읽습니다. 테마가 바뀌면 JS가 값을 다시 읽어
-캔버스에 넘기므로, **색을 바꿀 때 CSS만 고치면 3D까지 따라옵니다.**
-
-| 토큰 | 역할 |
+| Control | Behaviour |
 | --- | --- |
-| `--gl-bg` / `--gl-shell` | 배경, 파편 면의 기본색 |
-| `--gl-ok` / `--gl-warn` | 복구됨(민트) / 고장(앰버) |
-| `--gl-emis` | 이음매·림·코어의 발광 세기 |
-| `--gl-amb` | 면의 앰비언트 바닥값 |
-| `--gl-bloom` / `--gl-vig` | 블룸, 비네트 |
+| Mobile menu | Opens under 900px, closes on Escape, on link activation, and when the viewport crosses back over the breakpoint |
+| Incident replay | Steps carry their real offsets (0–252s) and play at 28×, so the pacing between stages is the true one. Play / pause / resume / replay, a progress bar, a running clock, a status pill that moves fault → repairing → resolved, and the diff appearing on the PATCH step. Autoplays once on first view; pauses when the tab is hidden |
+| "Watch a repair" | Jumps to the player *and* restarts it |
+| Billing toggle | Recomputes every price from `data-monthly` / `data-annual` and rewrites the billing note |
+| FAQ | Native `<details>`, so it works with scripting off |
+| Copy button | Clipboard API with a selection fallback for non-secure contexts |
+| Scrollspy | Marks the nav link for the topmost visible section |
+| Waitlist | Validates format, rejects personal-mail domains, assigns a stable queue position derived from the address, and persists in `localStorage` so a return visit shows your place |
 
-## 접근성과 폴백
+Sign-in is deliberately closed. Every identity provider on `login.html` is
+rendered and disabled behind an at-capacity notice — the UI is there, the door
+isn't open. `saveEntry()` in `login.js` is the single seam to replace with a
+`fetch()` when a backend exists.
 
-- **WebGL2가 없으면** 캔버스는 켜지지 않고 CSS 그라디언트 스테이지가 그대로 남습니다
-- **JS가 죽으면** 스크롤 리빌이 아무것도 숨기지 않습니다(숨김 상태는 `.js` 클래스에 종속)
-- **`prefers-reduced-motion`** 이면 루프를 돌리지 않고 정지 프레임 하나만 그립니다
-- 탭이 숨겨지거나 히어로가 화면 밖이면 렌더 루프를 멈춥니다. DPR은 1.75로 제한합니다
-- 한글이 단어 중간에서 끊기지 않도록 `word-break: keep-all`을 쓰고, 헤드라인의
-  글자별 span은 단어 단위 `.wd` 래퍼로 묶습니다
+## The hero
 
-## 바꿔 쓸 때
+The object renders the product's own claim. A gaussian **break wave** travels
+across a faceted solid; the shards it catches lift along their face normals and
+rotate, opening seams onto a hot core. Behind the wave everything closes again
+and the seams cool from amber back to mint. Fault and repair are the two states,
+and they are the only two colors the page uses with any force.
 
-- **문구**: `index.html`에 그대로 들어 있습니다
-- **색**: `assets/css/fixa.css` 상단 토큰 블록. 다크/라이트 두 벌 모두 고쳐야 합니다
-- **파편 밀도**: `hero-gl.js`의 `shellMesh(2, 1.0)` — 2를 3으로 올리면 1,280면이 됩니다
-- **파단파**: 같은 파일 `breakAt()`의 지수 계수가 띠 폭, `fract(time * 0.115)`가 속도입니다
+- A 320-face geosphere is exploded per face, so each triangle carries its own
+  centroid, normal, barycentric coordinates and a stable seed
+- Core, shell and drift points render to a scene FBO, then a bright pass, a
+  separable blur at quarter resolution, and a composite pass adding bloom,
+  chromatic aberration, vignette and dither
+- No library. Matrix math and geometry generation are both in `hero-gl.js`
 
-지표·사명·도입 기업 목록은 모두 템플릿용으로 지어낸 예시 값입니다.
+The headline resolves out of scrambled glyphs on load. Per-character spans would
+otherwise let a word break mid-word, so each word is wrapped in a `nowrap` span
+and only the spaces between them are break opportunities.
+
+## Theming
+
+Every color comes from a custom property on `:root`. Dark is the default. Light
+is a separately designed "lab bench" counterpart, not an inversion.
+
+The shader reads the same tokens, and JS re-reads them whenever the theme
+changes, so **editing the CSS moves the 3D with it.**
+
+| Token | Role |
+| --- | --- |
+| `--gl-bg` / `--gl-shell` | Background, and the base color of the shards |
+| `--gl-ok` / `--gl-warn` | Repaired (mint) / faulted (amber) |
+| `--gl-emis` | Emissive scale for seams, rim, core and drift |
+| `--gl-amb` | Ambient floor on the shard facets |
+| `--gl-bloom` / `--gl-vig` | Bloom amount, vignette strength |
+
+## Fallbacks
+
+- **No WebGL2** — the canvas never turns on and the CSS gradient stage stays
+- **No JavaScript** — scroll reveals hide nothing, because the hidden state is
+  scoped to a `.js` class set at parse time
+- **`prefers-reduced-motion`** — one composed still frame instead of a loop
+- The render loop stops when the tab is hidden or the hero leaves the viewport,
+  and device pixel ratio is capped at 1.75
+
+## Changing things
+
+- **Copy** lives in `index.html`
+- **Color** is the token block at the top of `assets/css/fixa.css`; both the dark
+  and light sets need editing
+- **Shard density** is `shellMesh(2, 1.0)` in `hero-gl.js` — 3 gives 1,280 faces
+- **The break wave** is `breakAt()`: the exponent sets the band width,
+  `fract(time * 0.115)` sets its speed
+- **Object placement** is `shiftX` / `shiftY` / `dist` in `drawScene()`
+- **Replay pacing** is `SPAN` and `RATE` in `site.js`; each step's `data-at` is
+  its offset in incident seconds
+- **Queue size** is `QUEUE_BASE` in `login.js`
+
+Metrics, customer names, pricing and the incident record are illustrative
+content for the page, not real operating data.

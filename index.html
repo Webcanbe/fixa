@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="ko">
+<html lang="en">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>fixa — 사람이 알아채기 전에 스스로 복구합니다</title>
-<meta name="description" content="fixa는 프로덕션 결함을 감지하고, 재현하고, 패치를 작성해 검증까지 마친 뒤 배포하는 자율 복구 엔진입니다." />
+<title>fixa — Fixed before you're paged</title>
+<meta name="description" content="fixa is an autonomous repair engine. It detects a production fault, reproduces it in an isolated sandbox, writes the smallest patch that fixes it, and proves the fix before shipping." />
 <meta name="color-scheme" content="dark light" />
 <link rel="stylesheet" href="assets/css/fixa.css" />
 <script>
@@ -19,12 +19,12 @@
 </head>
 <body>
 
-<a class="skip" href="#main">본문으로 건너뛰기</a>
+<a class="skip" href="#main">Skip to content</a>
 
 <!-- ───────────────────────────────────────── nav -->
 <header class="nav" id="nav">
   <div class="nav__in">
-    <a class="brand" href="#" aria-label="fixa 홈">
+    <a class="brand" href="./" aria-label="fixa home">
       <span class="brand__mark" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square">
           <path d="M4 12h4l2.5-6 3 12L16 12h4" />
@@ -33,22 +33,45 @@
       <span class="brand__word">fixa</span>
     </a>
 
-    <nav class="nav__links" aria-label="주요 메뉴">
-      <a href="#how">작동 방식</a>
-      <a href="#proof">복구 기록</a>
-      <a href="#spec">사양</a>
-      <a href="#trust">보안</a>
+    <nav class="nav__links" id="navlinks" aria-label="Primary">
+      <a href="#how">How it works</a>
+      <a href="#proof">Incidents</a>
+      <a href="#connect">Integrations</a>
+      <a href="#spec">Specs</a>
+      <a href="#pricing">Pricing</a>
     </nav>
 
     <div class="nav__end">
       <p class="status" role="status">
         <span class="status__dot" aria-hidden="true"></span>
-        <span class="status__txt">모든 시스템 정상</span>
+        <span class="status__txt">All systems operational</span>
       </p>
-      <button class="themebtn" type="button" id="themebtn" aria-label="밝기 전환">
+      <button class="themebtn" type="button" id="themebtn" aria-label="Toggle light and dark">
         <span class="themebtn__ico" aria-hidden="true"></span>
       </button>
-      <a class="btn btn--sm" href="#cta">시작하기</a>
+      <a class="btn btn--sm" href="login.html">Sign in</a>
+      <button class="menubtn" type="button" id="menubtn"
+              aria-expanded="false" aria-controls="mobilemenu" aria-label="Open menu">
+        <span class="menubtn__box" aria-hidden="true"><i></i><i></i></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="mobilemenu" id="mobilemenu" hidden>
+    <nav aria-label="Mobile">
+      <a href="#how">How it works</a>
+      <a href="#proof">Incidents</a>
+      <a href="#connect">Integrations</a>
+      <a href="#spec">Specs</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="mobilemenu__ft">
+      <p class="status">
+        <span class="status__dot" aria-hidden="true"></span>
+        <span class="status__txt">All systems operational</span>
+      </p>
+      <a class="btn btn--primary" href="login.html">Sign in</a>
     </div>
   </div>
 </header>
@@ -65,161 +88,161 @@
   </div>
 
   <div class="hero__grid">
-
     <div class="hero__lede">
       <p class="eyebrow">
-        <span class="eyebrow__k">자율 복구 엔진</span>
+        <span class="eyebrow__k">Autonomous repair engine</span>
         <span class="eyebrow__sep" aria-hidden="true"></span>
-        <span class="eyebrow__v">AUTONOMOUS&nbsp;REPAIR&nbsp;/&nbsp;v2.4</span>
+        <span class="eyebrow__v">v2.4</span>
       </p>
 
       <h1 class="display" id="headline">
-        <span class="display__ln" data-scramble>사람이 알아채기 전에</span>
-        <span class="display__ln display__ln--accent" data-scramble data-delay="260">스스로 복구합니다</span>
+        <span class="display__ln" data-scramble>Fixed before</span>
+        <span class="display__ln display__ln--accent" data-scramble data-delay="260">you're paged</span>
       </h1>
 
       <p class="lede">
-        fixa는 프로덕션에서 발생한 결함을 <em>감지</em>하고, 격리된 샌드박스에서
-        <em>재현</em>한 뒤, 최소 변경 패치를 작성해 <em>검증</em>까지 마치고 배포합니다.
-        사람은 승인만 하면 됩니다.
+        fixa <em>detects</em> a production fault, <em>reproduces</em> it in an isolated
+        sandbox, writes the smallest patch that addresses the root cause, and
+        <em>proves</em> the fix against your test suite and a canary before it ships.
+        Your team approves. Nothing else.
       </p>
 
       <div class="ctarow">
-        <a class="btn btn--primary" href="#proof">
-          <span>복구 시연 보기</span>
+        <a class="btn btn--primary" href="#proof" data-play>
+          <span>Watch a repair</span>
           <svg class="btn__arw" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke-linecap="square"/></svg>
         </a>
-        <a class="btn btn--ghost" href="#spec">기술 문서</a>
+        <a class="btn btn--ghost" href="#how">See how it works</a>
       </div>
 
       <p class="microcopy">
-        신용카드 없이 14일 · 읽기 전용 모드로 먼저 관찰합니다
-      </p>
-    </div>
-
-    <!-- live instrument readout -->
-    <aside class="readout" aria-label="실시간 지표">
-      <p class="readout__hd">
-        <span>LIVE&nbsp;TELEMETRY</span>
-        <span class="readout__pulse" aria-hidden="true"></span>
+        Onboarding is paused while we're at capacity — join the waitlist to hold a place.
       </p>
 
-      <dl class="readout__list">
-        <div class="ro">
-          <dt>평균 복구 시간</dt>
-          <dd><span class="num" data-tick="mttr">04:12</span></dd>
+      <dl class="stats" aria-label="Fleet metrics, last 7 days">
+        <div class="stat">
+          <dt>Median repair</dt>
+          <dd><span class="num" data-tick="mttr">4m 12s</span></dd>
         </div>
-        <div class="ro">
-          <dt>이번 주 자동 복구</dt>
+        <div class="stat">
+          <dt>Repairs this week</dt>
           <dd><span class="num" data-tick="fixed">1,284</span></dd>
         </div>
-        <div class="ro">
-          <dt>패치 정확도</dt>
+        <div class="stat">
+          <dt>Patch accuracy</dt>
           <dd><span class="num" data-tick="acc">99.2%</span></dd>
         </div>
-        <div class="ro">
-          <dt>감시 중 서비스</dt>
-          <dd><span class="num">37</span></dd>
-        </div>
       </dl>
-
-      <div class="readout__ft">
-        <span class="chip chip--ok">복구 완료 12</span>
-        <span class="chip chip--warn">검증 중 2</span>
-      </div>
-    </aside>
-
+    </div>
   </div>
 
   <div class="hero__base">
     <a class="scrollcue" href="#how">
       <span class="scrollcue__ln" aria-hidden="true"></span>
-      <span>작동 방식</span>
+      <span>How it works</span>
     </a>
-    <ul class="marks" aria-label="도입 기업">
-      <li>NEXOR</li><li>한빛클라우드</li><li>Orbit&nbsp;Pay</li><li>대성물류</li><li>Lumen&nbsp;Health</li>
-    </ul>
+    <div class="marks">
+      <p class="marks__lb">On call at</p>
+      <ul aria-label="Customers">
+        <li>NEXOR</li><li>Orbit&nbsp;Pay</li><li>Hanbit&nbsp;Cloud</li><li>Meridian</li><li>Lumen&nbsp;Health</li>
+      </ul>
+    </div>
   </div>
 </section>
 
 <!-- ───────────────────────────────────────── pipeline -->
 <section class="sec" id="how">
   <div class="sec__hd reveal">
-    <p class="kicker">복구 파이프라인</p>
-    <h2 class="h2">한 번의 장애가 <br />다섯 단계를 지납니다</h2>
+    <p class="kicker">Repair pipeline</p>
+    <h2 class="h2">Every incident walks <br />the same five stages</h2>
     <p class="sec__sub">
-      각 단계는 앞 단계의 산출물 없이는 시작하지 않습니다. 순서가 곧 안전장치입니다.
+      No stage begins without the previous stage's output. The order is the safety mechanism.
     </p>
   </div>
 
   <ol class="pipe" id="pipe">
     <li class="pipe__i reveal">
       <p class="pipe__n">01</p>
-      <h3 class="pipe__t">감지 <span>DETECT</span></h3>
-      <p class="pipe__d">이상 신호를 로그·트레이스·메트릭에서 교차 확인해 평균 4초 안에 포착합니다.</p>
-      <p class="pipe__m">p50 3.8s</p>
+      <h3 class="pipe__t">Detect <span>SIGNAL</span></h3>
+      <p class="pipe__d">Cross-checks logs, traces and metrics, so one noisy alert never starts a repair on its own.</p>
+      <p class="pipe__m">3.8s p50</p>
     </li>
     <li class="pipe__i reveal">
       <p class="pipe__n">02</p>
-      <h3 class="pipe__t">재현 <span>REPRODUCE</span></h3>
-      <p class="pipe__d">프로덕션과 동일한 격리 샌드박스를 세우고 실패 케이스를 다시 만듭니다.</p>
-      <p class="pipe__m">재현율 94%</p>
+      <h3 class="pipe__t">Reproduce <span>SANDBOX</span></h3>
+      <p class="pipe__d">Stands up an isolated environment matching production and makes the failure happen again.</p>
+      <p class="pipe__m">94% reproduced</p>
     </li>
     <li class="pipe__i reveal">
       <p class="pipe__n">03</p>
-      <h3 class="pipe__t">수리 <span>PATCH</span></h3>
-      <p class="pipe__d">근본 원인만 건드리는 최소 변경 패치를 작성하고 이유를 함께 남깁니다.</p>
-      <p class="pipe__m">평균 +14 −6</p>
+      <h3 class="pipe__t">Patch <span>DIFF</span></h3>
+      <p class="pipe__d">Writes the smallest change that addresses the root cause, and records the reasoning behind it.</p>
+      <p class="pipe__m">+14 −6 median</p>
     </li>
     <li class="pipe__i reveal">
       <p class="pipe__n">04</p>
-      <h3 class="pipe__t">검증 <span>VERIFY</span></h3>
-      <p class="pipe__d">회귀 테스트 전량과 카나리 트래픽 5%로 패치가 실제로 고쳤는지 확인합니다.</p>
-      <p class="pipe__m">게이트 3중</p>
+      <h3 class="pipe__t">Verify <span>PROOF</span></h3>
+      <p class="pipe__d">Runs your full regression suite, then 5% canary traffic, to confirm the patch actually fixed it.</p>
+      <p class="pipe__m">3 gates</p>
     </li>
     <li class="pipe__i reveal">
       <p class="pipe__n">05</p>
-      <h3 class="pipe__t">배포 <span>SHIP</span></h3>
-      <p class="pipe__d">승인 후 점진 롤아웃, 지표가 흔들리면 사람을 기다리지 않고 되돌립니다.</p>
-      <p class="pipe__m">롤백 8초</p>
+      <h3 class="pipe__t">Ship <span>ROLLOUT</span></h3>
+      <p class="pipe__d">Progressive rollout after approval. If the metrics move the wrong way, it reverts without waiting.</p>
+      <p class="pipe__m">8s rollback</p>
     </li>
   </ol>
 </section>
 
-<!-- ───────────────────────────────────────── proof -->
+<!-- ───────────────────────────────────────── repair player -->
 <section class="sec sec--panel" id="proof">
   <div class="proof">
     <div class="proof__side reveal">
-      <p class="kicker">복구 기록</p>
-      <h2 class="h2">INC‑4471<br />결제 타임아웃</h2>
+      <p class="kicker">Incident record</p>
+      <h2 class="h2">INC‑4471<br />Payment timeouts</h2>
       <p class="sec__sub">
-        새벽 3시 12분, 결제 승인 지연이 임계값을 넘었습니다.
-        fixa가 원인을 커넥션 풀 고갈로 좁히고 패치를 올린 뒤,
-        당직자는 알림 하나와 승인 버튼 하나를 받았습니다.
+        At 03:12 on a Tuesday, payment authorization latency crossed threshold.
+        fixa narrowed it to connection pool exhaustion, opened a patch, and proved it
+        against the suite. The on-call engineer got one notification and one approval button.
       </p>
       <dl class="kv">
-        <div><dt>감지</dt><dd>03:12:04</dd></div>
-        <div><dt>배포</dt><dd>03:16:16</dd></div>
-        <div><dt>영향 사용자</dt><dd>0</dd></div>
-        <div><dt>사람 개입</dt><dd>승인 1회</dd></div>
+        <div><dt>Detected</dt><dd>03:12:04</dd></div>
+        <div><dt>Shipped</dt><dd>03:16:16</dd></div>
+        <div><dt>Users affected</dt><dd>0</dd></div>
+        <div><dt>Human input</dt><dd>1 approval</dd></div>
       </dl>
+      <p class="microcopy">Replays at 28× the original clock.</p>
     </div>
 
-    <figure class="term reveal" aria-label="fixa 복구 로그 예시">
+    <figure class="term reveal" id="player" aria-label="Repair log for incident 4471">
       <figcaption class="term__bar">
         <span class="term__dots" aria-hidden="true"><i></i><i></i><i></i></span>
         <span class="term__ttl">fixa · incident‑4471</span>
-        <span class="term__st">RESOLVED</span>
+        <span class="term__st" id="playState" data-state="idle">STANDBY</span>
       </figcaption>
-      <pre class="term__body"><code data-type>
-<span class="c-mut">03:12:04</span> <span class="c-warn">DETECT </span> p99 latency 4.8s <span class="c-mut">(threshold 1.2s)</span>
-<span class="c-mut">03:12:09</span> <span class="c-mut">SCOPE  </span> payments‑api → db‑pool
-<span class="c-mut">03:12:41</span> <span class="c-mut">REPRO  </span> sandbox‑7f2 · 실패 재현 성공
-<span class="c-mut">03:13:58</span> <span class="c-ok">PATCH  </span> pool.max 20 → 64, idle 30s → 5s
-<span class="c-mut">03:15:02</span> <span class="c-mut">VERIFY </span> 412 tests · canary 5% · p99 0.21s
-<span class="c-mut">03:16:16</span> <span class="c-ok">SHIP   </span> rollout 100% · 롤백 준비 완료
-</code></pre>
-      <div class="term__diff">
+
+      <div class="player__ctl">
+        <button class="pbtn" type="button" id="playBtn" aria-controls="playLog">
+          <span class="pbtn__ico" id="playIco" aria-hidden="true"></span>
+          <span id="playLbl">Play repair</span>
+        </button>
+        <div class="player__track" role="progressbar" aria-labelledby="playLbl"
+             aria-valuemin="0" aria-valuemax="252" aria-valuenow="0" id="playTrack">
+          <span class="player__fill" id="playFill"></span>
+        </div>
+        <span class="player__clock num" id="playClock">00:00</span>
+      </div>
+
+      <ol class="log" id="playLog">
+        <li class="log__l" data-at="0"><span class="log__t">03:12:04</span><span class="log__k log__k--warn">DETECT</span><span class="log__v">p99 latency 4.8s <i>(threshold 1.2s)</i></span></li>
+        <li class="log__l" data-at="5"><span class="log__t">03:12:09</span><span class="log__k">SCOPE</span><span class="log__v">payments‑api → db‑pool</span></li>
+        <li class="log__l" data-at="37"><span class="log__t">03:12:41</span><span class="log__k">REPRO</span><span class="log__v">sandbox‑7f2 · failure reproduced</span></li>
+        <li class="log__l" data-at="114" data-diff><span class="log__t">03:13:58</span><span class="log__k log__k--ok">PATCH</span><span class="log__v">pool.max 20 → 64, idle 30s → 5s</span></li>
+        <li class="log__l" data-at="178"><span class="log__t">03:15:02</span><span class="log__k">VERIFY</span><span class="log__v">412 tests · canary 5% · p99 0.21s</span></li>
+        <li class="log__l" data-at="252"><span class="log__t">03:16:16</span><span class="log__k log__k--ok">SHIP</span><span class="log__v">rollout 100% · rollback armed</span></li>
+      </ol>
+
+      <div class="term__diff" id="playDiff" data-open="false">
         <p class="term__difhd">patch · db/pool.ts</p>
         <p class="dl dl--del"><span>−</span> maxConnections: 20,</p>
         <p class="dl dl--add"><span>+</span> maxConnections: 64,</p>
@@ -227,72 +250,286 @@
       </div>
     </figure>
   </div>
+
+  <blockquote class="quote reveal">
+    <p class="quote__t">
+      “The first month it just watched and wrote reports. We read every one before we
+      let it touch anything. By the time we turned on write access we already trusted
+      the reasoning more than our own 3am guesses.”
+    </p>
+    <footer class="quote__by">
+      <span class="quote__nm">Priya Raghunathan</span>
+      <span class="quote__ro">VP Engineering, Orbit Pay</span>
+    </footer>
+  </blockquote>
+</section>
+
+<!-- ───────────────────────────────────────── integrations -->
+<section class="sec" id="connect">
+  <div class="sec__hd reveal">
+    <p class="kicker">Integrations</p>
+    <h2 class="h2">It reads what you<br />already run</h2>
+    <p class="sec__sub">
+      No new agent to standardize on and no telemetry rewrite. fixa connects to the
+      signals, repositories and runtimes you have today.
+    </p>
+  </div>
+
+  <div class="conn reveal">
+    <div class="conn__grp">
+      <h3 class="conn__h">Signals in</h3>
+      <ul class="conn__l">
+        <li>Datadog</li><li>Grafana</li><li>Sentry</li>
+        <li>OpenTelemetry</li><li>Prometheus</li><li>CloudWatch</li>
+      </ul>
+    </div>
+    <div class="conn__grp">
+      <h3 class="conn__h">Code</h3>
+      <ul class="conn__l">
+        <li>GitHub</li><li>GitLab</li><li>Bitbucket</li><li>Gerrit</li>
+      </ul>
+    </div>
+    <div class="conn__grp">
+      <h3 class="conn__h">Runtime</h3>
+      <ul class="conn__l">
+        <li>Kubernetes</li><li>ECS</li><li>Nomad</li><li>Bare metal</li>
+      </ul>
+    </div>
+    <div class="conn__grp">
+      <h3 class="conn__h">Notify</h3>
+      <ul class="conn__l">
+        <li>PagerDuty</li><li>Slack</li><li>Opsgenie</li><li>Webhooks</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="snip reveal">
+    <div class="snip__hd">
+      <span class="snip__lb">Connect in read-only</span>
+      <button class="copybtn" type="button" data-copy="fixa connect --workspace acme --read-only">
+        <span class="copybtn__t">Copy</span>
+      </button>
+    </div>
+    <pre class="snip__body"><code>$ brew install fixa
+$ fixa connect --workspace acme --read-only
+
+  <span class="c-ok">✓</span> 37 services discovered
+  <span class="c-ok">✓</span> read-only credentials stored in your vault
+  <span class="c-mut">·</span> observing — no writes until you approve</code></pre>
+  </div>
 </section>
 
 <!-- ───────────────────────────────────────── spec -->
-<section class="sec" id="spec">
+<section class="sec sec--panel" id="spec">
   <div class="sec__hd reveal">
-    <p class="kicker">사양</p>
-    <h2 class="h2">숫자로 적어둡니다</h2>
-    <p class="sec__sub">영업 자료가 아니라 운영 문서에 들어가는 값입니다. 지난 90일 실측 기준.</p>
+    <p class="kicker">Specifications</p>
+    <h2 class="h2">The numbers we<br />operate against</h2>
+    <p class="sec__sub">These are the values in our own runbook, measured across the last 90 days. Not a sales sheet.</p>
   </div>
 
   <div class="tablewrap reveal">
     <table class="tbl">
-      <caption class="sr">fixa 운영 사양</caption>
+      <caption class="sr">fixa operating specifications</caption>
       <thead>
-        <tr><th scope="col">항목</th><th scope="col">값</th><th scope="col">측정</th><th scope="col">비고</th></tr>
+        <tr><th scope="col">Metric</th><th scope="col">Value</th><th scope="col">Basis</th><th scope="col">Notes</th></tr>
       </thead>
       <tbody>
-        <tr><th scope="row">감지 지연</th><td class="n">3.8s</td><td class="n n--unit">p50</td><td>로그·트레이스·메트릭 교차</td></tr>
-        <tr><th scope="row">평균 복구 시간</th><td class="n">4:12</td><td class="n n--unit">p50</td><td>감지부터 배포 완료까지</td></tr>
-        <tr><th scope="row">패치 정확도</th><td class="n">99.2%</td><td class="n n--unit">90일</td><td>회귀 없이 통과한 비율</td></tr>
-        <tr><th scope="row">자동 롤백</th><td class="n">8s</td><td class="n n--unit">p95</td><td>지표 이탈 감지 시</td></tr>
-        <tr><th scope="row">지원 런타임</th><td class="n">14</td><td class="n n--unit">—</td><td>Node · Go · JVM · Python 외</td></tr>
-        <tr><th scope="row">데이터 보존</th><td class="n">30일</td><td class="n n--unit">기본</td><td>리전 고정, 삭제 요청 즉시 반영</td></tr>
+        <tr><th scope="row">Detection latency</th><td class="n">3.8s</td><td class="n n--unit">p50</td><td>Logs, traces and metrics cross-checked</td></tr>
+        <tr><th scope="row">Median repair</th><td class="n">4m 12s</td><td class="n n--unit">p50</td><td>Detection through completed rollout</td></tr>
+        <tr><th scope="row">Patch accuracy</th><td class="n">99.2%</td><td class="n n--unit">90d</td><td>Shipped without a regression</td></tr>
+        <tr><th scope="row">Automatic rollback</th><td class="n">8s</td><td class="n n--unit">p95</td><td>From metric deviation to reverted</td></tr>
+        <tr><th scope="row">Supported runtimes</th><td class="n">14</td><td class="n n--unit">—</td><td>Node, Go, JVM, Python and others</td></tr>
+        <tr><th scope="row">Data retention</th><td class="n">30 days</td><td class="n n--unit">default</td><td>Region-pinned, deletion honored on request</td></tr>
       </tbody>
     </table>
   </div>
 </section>
 
 <!-- ───────────────────────────────────────── trust -->
-<section class="sec sec--panel" id="trust">
+<section class="sec" id="trust">
   <div class="sec__hd reveal">
-    <p class="kicker">보안</p>
-    <h2 class="h2">권한은 최소로,<br />기록은 전부</h2>
+    <p class="kicker">Security</p>
+    <h2 class="h2">Least privilege,<br />complete record</h2>
   </div>
   <ul class="cards">
     <li class="card reveal">
-      <h3 class="card__t">읽기 전용으로 시작</h3>
-      <p class="card__d">도입 첫 2주는 관찰만 합니다. 무엇을 고쳤을지 보고서로만 제출하고, 쓰기 권한은 승인 후에 열립니다.</p>
+      <h3 class="card__t">Read-only for the first two weeks</h3>
+      <p class="card__d">It observes and files a report of what it would have fixed. Write access opens only after you approve it.</p>
     </li>
     <li class="card reveal">
-      <h3 class="card__t">모든 변경에 근거</h3>
-      <p class="card__d">패치마다 원인 가설, 재현 로그, 테스트 결과가 함께 남습니다. 사후 검토에 그대로 씁니다.</p>
+      <h3 class="card__t">Every change carries its reasoning</h3>
+      <p class="card__d">Each patch ships with the root-cause hypothesis, the reproduction log and the test results. They go straight into your postmortem.</p>
     </li>
     <li class="card reveal">
-      <h3 class="card__t">코드는 나가지 않습니다</h3>
-      <p class="card__d">전용 VPC 또는 온프레미스에서 실행합니다. 소스와 로그는 지정한 리전을 벗어나지 않습니다.</p>
+      <h3 class="card__t">Your code stays where it is</h3>
+      <p class="card__d">Runs inside your VPC or on-premise. Source and logs never leave the region you name.</p>
     </li>
     <li class="card reveal">
-      <h3 class="card__t">언제든 멈춤</h3>
-      <p class="card__d">단일 킬 스위치로 전 서비스 자동 조치를 중단합니다. 진행 중이던 롤아웃은 즉시 되돌립니다.</p>
+      <h3 class="card__t">One switch stops everything</h3>
+      <p class="card__d">A single kill switch halts automated action across every service and reverts any rollout still in flight.</p>
     </li>
   </ul>
+</section>
+
+<!-- ───────────────────────────────────────── pricing -->
+<section class="sec sec--panel" id="pricing">
+  <div class="sec__hd reveal">
+    <p class="kicker">Pricing</p>
+    <h2 class="h2">Priced per service,<br />not per incident</h2>
+    <p class="sec__sub">
+      You should never hesitate to point fixa at a flaky service because of the bill.
+    </p>
+
+    <div class="billing" role="group" aria-label="Billing period">
+      <button class="billing__b" type="button" data-billing="monthly" aria-pressed="true">Monthly</button>
+      <button class="billing__b" type="button" data-billing="annual" aria-pressed="false">
+        Annual <span class="billing__save">−20%</span>
+      </button>
+    </div>
+  </div>
+
+  <ul class="plans">
+    <li class="plan reveal">
+      <p class="plan__tag" aria-hidden="true">&nbsp;</p>
+      <h3 class="plan__n">Starter</h3>
+      <p class="plan__p">
+        <span class="plan__cur">$</span><span class="plan__v" data-monthly="2400" data-annual="1920">2,400</span>
+        <span class="plan__per">/mo</span>
+      </p>
+      <p class="plan__note" data-billing-note>Billed monthly</p>
+      <ul class="plan__l">
+        <li>Up to 10 services</li>
+        <li>Detect, reproduce and report</li>
+        <li>Patches require approval</li>
+        <li>30-day retention</li>
+        <li>Email support</li>
+      </ul>
+      <a class="btn btn--ghost plan__cta" href="login.html">Join waitlist</a>
+    </li>
+
+    <li class="plan plan--lead reveal">
+      <p class="plan__tag">Most teams start here</p>
+      <h3 class="plan__n">Scale</h3>
+      <p class="plan__p">
+        <span class="plan__cur">$</span><span class="plan__v" data-monthly="7900" data-annual="6320">7,900</span>
+        <span class="plan__per">/mo</span>
+      </p>
+      <p class="plan__note" data-billing-note>Billed monthly</p>
+      <ul class="plan__l">
+        <li>Up to 50 services</li>
+        <li>Everything in Starter</li>
+        <li>Auto-ship allowlist per service</li>
+        <li>Canary and progressive rollout</li>
+        <li>90-day retention</li>
+        <li>Shared Slack channel</li>
+      </ul>
+      <a class="btn btn--primary plan__cta" href="login.html">Join waitlist</a>
+    </li>
+
+    <li class="plan reveal">
+      <p class="plan__tag" aria-hidden="true">&nbsp;</p>
+      <h3 class="plan__n">Enterprise</h3>
+      <p class="plan__p"><span class="plan__v plan__v--word">Custom</span></p>
+      <p class="plan__note">On-premise or dedicated VPC</p>
+      <ul class="plan__l">
+        <li>Unlimited services</li>
+        <li>Everything in Scale</li>
+        <li>Air-gapped deployment</li>
+        <li>Custom retention and residency</li>
+        <li>Named reliability engineer</li>
+        <li>99.9% uptime SLA</li>
+      </ul>
+      <a class="btn btn--ghost plan__cta" href="login.html">Talk to us</a>
+    </li>
+  </ul>
+
+  <p class="plans__ft reveal">
+    All plans start in read-only. Nothing writes to your systems until you turn it on.
+  </p>
+</section>
+
+<!-- ───────────────────────────────────────── faq -->
+<section class="sec" id="faq">
+  <div class="sec__hd reveal">
+    <p class="kicker">Questions</p>
+    <h2 class="h2">The ones we actually<br />get asked</h2>
+  </div>
+
+  <div class="faq reveal">
+    <details class="faq__i" name="faq">
+      <summary class="faq__q">Why can't I sign up right now?<span class="faq__x" aria-hidden="true"></span></summary>
+      <div class="faq__a"><p>
+        Onboarding a workspace is hands-on for us — we tune detection against your
+        actual signals before fixa is allowed near a patch. We have more services
+        under repair than we can onboard well, so new workspaces are paused rather
+        than run badly. The waitlist is in order and we work through it weekly.
+      </p></div>
+    </details>
+
+    <details class="faq__i" name="faq">
+      <summary class="faq__q">What happens when fixa can't reproduce a failure?<span class="faq__x" aria-hidden="true"></span></summary>
+      <div class="faq__a"><p>
+        It stops. A patch is never written against a failure that was not reproduced
+        in the sandbox first. You get the detection record, the traces it correlated
+        and what it tried, and the incident is handed to a human.
+      </p></div>
+    </details>
+
+    <details class="faq__i" name="faq">
+      <summary class="faq__q">Can it ship without a human approving?<span class="faq__x" aria-hidden="true"></span></summary>
+      <div class="faq__a"><p>
+        Not by default. Every rollout waits for an approval. Teams that have watched
+        it for a while tend to allowlist specific low-risk services — config bounds,
+        pool sizes, timeouts — and keep approval on everything else. The allowlist is
+        per service and revocable at any moment.
+      </p></div>
+    </details>
+
+    <details class="faq__i" name="faq">
+      <summary class="faq__q">What if the patch is wrong?<span class="faq__x" aria-hidden="true"></span></summary>
+      <div class="faq__a"><p>
+        Three things have to pass before a patch reaches full traffic: your regression
+        suite, a 5% canary, and the metric that opened the incident returning to
+        normal. After rollout, deviation triggers an automatic revert in about eight
+        seconds at p95 — faster than a human can read the alert.
+      </p></div>
+    </details>
+
+    <details class="faq__i" name="faq">
+      <summary class="faq__q">Does our source code leave our infrastructure?<span class="faq__x" aria-hidden="true"></span></summary>
+      <div class="faq__a"><p>
+        No. fixa runs inside your VPC or on-premise. Source, logs and traces stay in
+        the region you name. What leaves is billing metadata and, if you opt in,
+        anonymous failure-class counts that help us improve detection.
+      </p></div>
+    </details>
+
+    <details class="faq__i" name="faq">
+      <summary class="faq__q">Which runtimes are supported?<span class="faq__x" aria-hidden="true"></span></summary>
+      <div class="faq__a"><p>
+        Fourteen today. Node, Deno, Go, JVM languages, Python, Ruby, Rust, PHP,
+        .NET and Elixir cover almost everyone who asks. Reproduction quality is
+        highest where you already have integration tests worth running.
+      </p></div>
+    </details>
+  </div>
 </section>
 
 <!-- ───────────────────────────────────────── cta -->
 <section class="cta" id="cta">
   <div class="cta__in reveal">
-    <p class="kicker">시작</p>
-    <h2 class="cta__t">다음 장애는<br />알림보다 복구가 먼저입니다</h2>
-    <p class="sec__sub">읽기 전용 모드로 붙여두고, fixa가 무엇을 고쳤을지 2주 동안 지켜보세요.</p>
+    <p class="kicker">Waitlist</p>
+    <h2 class="cta__t">The next incident should be<br />a repair, not a page</h2>
+    <p class="sec__sub">
+      We're not onboarding new workspaces at the moment. Leave an address and we'll
+      come back to you in order, usually within a few weeks.
+    </p>
     <div class="ctarow">
-      <a class="btn btn--primary" href="#">
-        <span>도입 문의</span>
+      <a class="btn btn--primary" href="login.html">
+        <span>Join the waitlist</span>
         <svg class="btn__arw" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke-linecap="square"/></svg>
       </a>
-      <a class="btn btn--ghost" href="#">엔지니어와 통화</a>
+      <a class="btn btn--ghost" href="#faq">Read the FAQ</a>
     </div>
   </div>
 </section>
@@ -301,9 +538,62 @@
 
 <footer class="foot">
   <div class="foot__in">
-    <p class="foot__brand">fixa</p>
-    <p class="foot__note">자율 복구 엔진 · 서울</p>
-    <p class="foot__note foot__note--dim">© 2026 fixa. 이 페이지는 디자인 템플릿입니다.</p>
+    <div class="foot__id">
+      <a class="brand" href="./" aria-label="fixa home">
+        <span class="brand__mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square">
+            <path d="M4 12h4l2.5-6 3 12L16 12h4" />
+          </svg>
+        </span>
+        <span class="brand__word">fixa</span>
+      </a>
+      <p class="foot__blurb">Autonomous repair engine for production systems.</p>
+      <p class="status status--foot">
+        <span class="status__dot" aria-hidden="true"></span>
+        <span class="status__txt">All systems operational</span>
+      </p>
+    </div>
+
+    <nav class="foot__cols" aria-label="Footer">
+      <div class="foot__col">
+        <h2 class="foot__h">Product</h2>
+        <ul>
+          <li><a href="#how">How it works</a></li>
+          <li><a href="#proof">Incidents</a></li>
+          <li><a href="#connect">Integrations</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+        </ul>
+      </div>
+      <div class="foot__col">
+        <h2 class="foot__h">Resources</h2>
+        <ul>
+          <li><a href="#spec">Specs</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#trust">Security</a></li>
+          <li><a href="login.html">Sign in</a></li>
+        </ul>
+      </div>
+      <div class="foot__col">
+        <h2 class="foot__h">Company</h2>
+        <ul>
+          <li><a href="#cta">Waitlist</a></li>
+          <li><a href="#proof">Customer stories</a></li>
+          <li><a href="#trust">Trust</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+  <div class="foot__base">
+    <p class="foot__note">© 2026 fixa, Inc.</p>
+    <p class="foot__note">
+      <a class="foot__credit" href="https://www.upwork.com/freelancers/~01238100bda052dcdb?mp_source=share"
+         target="_blank" rel="noopener noreferrer">
+        This site is made by Alex M
+        <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true" class="foot__ext"><path d="M4 2h6v6M10 2 3 9" stroke-linecap="square"/></svg>
+      </a>
+    </p>
+    <p class="foot__note foot__note--dim">SOC 2 Type II · ISO 27001</p>
   </div>
 </footer>
 
